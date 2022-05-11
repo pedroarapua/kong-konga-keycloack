@@ -1,0 +1,1458 @@
+{
+	"info": {
+		"_postman_id": "2d9605e9-4bd1-4ba4-8cd6-eaed835ee9d1",
+		"name": "kong-konga-keycloack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "kong configurations",
+			"item": [
+				{
+					"name": "Enable Plugin OIDC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "oidc",
+									"type": "text"
+								},
+								{
+									"key": "config.client_id",
+									"value": "kong-oidc",
+									"type": "text"
+								},
+								{
+									"key": "config.client_secret",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"serviceId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"mock-service\",\n    \"url\": \"http://mockbin.org/request\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/services",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services"
+							]
+						},
+						"description": "http://localhost:8001/services"
+					},
+					"response": []
+				},
+				{
+					"name": "GET services",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"serviceId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/services/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								""
+							]
+						},
+						"description": "http://localhost:8001/services"
+					},
+					"response": []
+				},
+				{
+					"name": "Add a route to the service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"route_mock\",\n    \"methods\": [\"GET\"],\n    \"protocols\": [\"http\"],\n    \"paths\": [\"/mock\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/services/mock-service/routes/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								"mock-service",
+								"routes",
+								""
+							]
+						},
+						"description": "http://localhost:8001/services"
+					},
+					"response": []
+				},
+				{
+					"name": "GET routes by service id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"serviceId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/services/mock-service/routes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								"mock-service",
+								"routes"
+							]
+						},
+						"description": "http://localhost:8001/services/{id}/routes"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paths\": [\n        \"/mocks\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/services/6a7a87ef-d0aa-46ee-8db3-71ac022cc580/routes/80fa81c3-c237-4202-b4f6-1c45c3544412",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								"6a7a87ef-d0aa-46ee-8db3-71ac022cc580",
+								"routes",
+								"80fa81c3-c237-4202-b4f6-1c45c3544412"
+							]
+						},
+						"description": "http://localhost:8001/services/{serviceId}/routes/{id}"
+					},
+					"response": []
+				},
+				{
+					"name": "Add OIDC plugin to a route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"oidc\",\n  \"route\": \"route_mock\",\n  \"enabled\": true,\n  \"config\": {\n    \"client_id\": \"kong-app-client-credential\",\n    \"client_secret\": \"FEqF9kspR1o5RjbYDuq9qjLvRnYnyZXD\",\n    \"bearer_only\": \"yes\",\n    \"realm\": \"experimental\",\n    \"introspection_endpoint\": \"http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect\",\n    \"discovery\": \"http://192.168.15.121:8180/auth/realms/experimental/.well-known/openid-configuration\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/routes/route_mock/plugins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"routes",
+								"route_mock",
+								"plugins"
+							]
+						},
+						"description": "http://localhost:8001/routes/route_mock/plugins"
+					},
+					"response": []
+				},
+				{
+					"name": "GET OIDC plugin to a route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"oidc\",\n  \"route\": \"route_mock\",\n  \"enabled\": true,\n  \"config\": {\n    \"client_id\": \"kong-app-client-credential\",\n    \"client_secret\": \"FEqF9kspR1o5RjbYDuq9qjLvRnYnyZXD\",\n    \"bearer_only\": \"yes\",\n    \"realm\": \"experimental\",\n    \"introspection_endpoint\": \"http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect\",\n    \"discovery\": \"http://192.168.15.121:8180/auth/realms/experimental/.well-known/openid-configuration\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/routes/route_mock/plugins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"routes",
+								"route_mock",
+								"plugins"
+							]
+						},
+						"description": "http://localhost:8001/routes/route_mock/plugins"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete OIDC plugin to a route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"oidc\",\n  \"route\": \"route_mock\",\n  \"enabled\": true,\n  \"config\": {\n    \"client_id\": \"kong-app-client-credential\",\n    \"client_secret\": \"FEqF9kspR1o5RjbYDuq9qjLvRnYnyZXD\",\n    \"bearer_only\": \"yes\",\n    \"realm\": \"experimental\",\n    \"introspection_endpoint\": \"http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect\",\n    \"discovery\": \"http://192.168.15.121:8180/auth/realms/experimental/.well-known/openid-configuration\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/routes/route_mock/plugins/09a32d72-dcde-4e1d-b048-16a61f5d95d4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"routes",
+								"route_mock",
+								"plugins",
+								"09a32d72-dcde-4e1d-b048-16a61f5d95d4"
+							]
+						},
+						"description": "http://localhost:8001/routes/route_mock/plugins"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OAuth",
+			"item": [
+				{
+					"name": "grant type client_credentials",
+					"item": [
+						{
+							"name": "get token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "kong-app-client-credential",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "FEqF9kspR1o5RjbYDuq9qjLvRnYnyZXD",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "email",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"15",
+										"121"
+									],
+									"port": "8180",
+									"path": [
+										"realms",
+										"experimental",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								},
+								"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "grant type authorization code",
+					"item": [
+						{
+							"name": "auth user",
+							"item": [
+								{
+									"name": "login user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=myapp-authorization-code&response_type=code&state=fj8o3n7bdy1op5",
+											"protocol": "http",
+											"host": [
+												"192",
+												"168",
+												"15",
+												"121"
+											],
+											"port": "8180",
+											"path": [
+												"realms",
+												"experimental",
+												"protocol",
+												"openid-connect",
+												"auth"
+											],
+											"query": [
+												{
+													"key": "client_id",
+													"value": "myapp-authorization-code"
+												},
+												{
+													"key": "response_type",
+													"value": "code"
+												},
+												{
+													"key": "state",
+													"value": "fj8o3n7bdy1op5"
+												}
+											]
+										},
+										"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth"
+									},
+									"response": []
+								},
+								{
+									"name": "login user + redirect uri",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=myapp-authorization-code&response_type=code&state=fj8o3n7bdy1op5&redirect_uri=http://192.168.15.121:8180/abc",
+											"protocol": "http",
+											"host": [
+												"192",
+												"168",
+												"15",
+												"121"
+											],
+											"port": "8180",
+											"path": [
+												"realms",
+												"experimental",
+												"protocol",
+												"openid-connect",
+												"auth"
+											],
+											"query": [
+												{
+													"key": "client_id",
+													"value": "myapp-authorization-code"
+												},
+												{
+													"key": "response_type",
+													"value": "code"
+												},
+												{
+													"key": "state",
+													"value": "fj8o3n7bdy1op5"
+												},
+												{
+													"key": "redirect_uri",
+													"value": "http://192.168.15.121:8180/abc"
+												}
+											]
+										},
+										"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth"
+									},
+									"response": []
+								},
+								{
+									"name": "login user + audience",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=myapp-authorization-code&response_type=code&state=fj8o3n7bdy1op5&scope=openid profile email read:appointments&redirect_uri=http://192.168.15.121:8180/abc&audience=YOUR_API_AUDIENCE",
+											"protocol": "http",
+											"host": [
+												"192",
+												"168",
+												"15",
+												"121"
+											],
+											"port": "8180",
+											"path": [
+												"realms",
+												"experimental",
+												"protocol",
+												"openid-connect",
+												"auth"
+											],
+											"query": [
+												{
+													"key": "client_id",
+													"value": "myapp-authorization-code"
+												},
+												{
+													"key": "response_type",
+													"value": "code"
+												},
+												{
+													"key": "state",
+													"value": "fj8o3n7bdy1op5"
+												},
+												{
+													"key": "scope",
+													"value": "openid profile email read:appointments"
+												},
+												{
+													"key": "redirect_uri",
+													"value": "http://192.168.15.121:8180/abc"
+												},
+												{
+													"key": "audience",
+													"value": "YOUR_API_AUDIENCE"
+												}
+											]
+										},
+										"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "get token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "authorization_code",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "myapp-authorization-code",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "5cf73927-4741-4845-9c46-d0bf830e381d.8ed2aa21-c290-42b6-a249-b86a3ceea58d.a0253766-498a-46ff-aca5-b951412113b4",
+											"type": "text"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "http://192.168.15.121:8180/abc",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"15",
+										"121"
+									],
+									"port": "8180",
+									"path": [
+										"realms",
+										"experimental",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								},
+								"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token"
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "grant type PKCE",
+					"item": [
+						{
+							"name": "auth user",
+							"item": [
+								{
+									"name": "login user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=photo-app-pkce&response_type=code&state=fj8o3n7bdy1op5&code_challenge=iJuzte-yKmDXz1HpDS8Tm9llDhwoBuHh91bBg_LJFX0&code_challenge_method=S256",
+											"protocol": "http",
+											"host": [
+												"192",
+												"168",
+												"15",
+												"121"
+											],
+											"port": "8180",
+											"path": [
+												"realms",
+												"experimental",
+												"protocol",
+												"openid-connect",
+												"auth"
+											],
+											"query": [
+												{
+													"key": "client_id",
+													"value": "photo-app-pkce"
+												},
+												{
+													"key": "response_type",
+													"value": "code"
+												},
+												{
+													"key": "state",
+													"value": "fj8o3n7bdy1op5"
+												},
+												{
+													"key": "code_challenge",
+													"value": "iJuzte-yKmDXz1HpDS8Tm9llDhwoBuHh91bBg_LJFX0"
+												},
+												{
+													"key": "code_challenge_method",
+													"value": "S256"
+												}
+											]
+										},
+										"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth"
+									},
+									"response": []
+								},
+								{
+									"name": "login user + redirect uri",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=photo-app-pkce&response_type=code&state=fj8o3n7bdy1op5&code_challenge=-sUEoAV-txYvhniiuJ4-gwNCtsiD2XiIPvLQYm-sUsE&code_challenge_method=S256&redirect_uri=http://192.168.15.121:8180/abc",
+											"protocol": "http",
+											"host": [
+												"192",
+												"168",
+												"15",
+												"121"
+											],
+											"port": "8180",
+											"path": [
+												"realms",
+												"experimental",
+												"protocol",
+												"openid-connect",
+												"auth"
+											],
+											"query": [
+												{
+													"key": "client_id",
+													"value": "photo-app-pkce"
+												},
+												{
+													"key": "response_type",
+													"value": "code"
+												},
+												{
+													"key": "state",
+													"value": "fj8o3n7bdy1op5"
+												},
+												{
+													"key": "code_challenge",
+													"value": "-sUEoAV-txYvhniiuJ4-gwNCtsiD2XiIPvLQYm-sUsE"
+												},
+												{
+													"key": "code_challenge_method",
+													"value": "S256"
+												},
+												{
+													"key": "redirect_uri",
+													"value": "http://192.168.15.121:8180/abc"
+												}
+											]
+										},
+										"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "get token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "authorization_code",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "photo-app-pkce",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "e1725773-9044-4ac7-b6ed-f2cd69494591.25930a0f-3f7d-422b-afbb-d237e08637ae.9e32e292-7a00-4330-829b-5deafa0ef65b",
+											"type": "text"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "http://192.168.15.121:8180/abc",
+											"type": "text"
+										},
+										{
+											"key": "code_verifier",
+											"value": "3a737b3bd59ac56417641e0a84799934515185615300d07493268e7d",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"15",
+										"121"
+									],
+									"port": "8180",
+									"path": [
+										"realms",
+										"experimental",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								},
+								"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token"
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "grant type Device Code",
+					"item": [
+						{
+							"name": "auth user",
+							"item": [
+								{
+									"name": "login user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "client_id",
+													"value": "photo-app-device",
+													"type": "text"
+												},
+												{
+													"key": "client_secret",
+													"value": "IXieSvOgY2pDr7vu76sbq74qHekRVW2f",
+													"type": "text"
+												}
+											],
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth/device",
+											"protocol": "http",
+											"host": [
+												"192",
+												"168",
+												"15",
+												"121"
+											],
+											"port": "8180",
+											"path": [
+												"realms",
+												"experimental",
+												"protocol",
+												"openid-connect",
+												"auth",
+												"device"
+											]
+										},
+										"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth/device"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "get token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "urn:ietf:params:oauth:grant-type:device_code",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "photo-app-device",
+											"type": "text"
+										},
+										{
+											"key": "device_code",
+											"value": "_860SFSZ03RBKGNmfr1nZMsMcUpJunl6dOQkBXvm3nw",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "IXieSvOgY2pDr7vu76sbq74qHekRVW2f",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"15",
+										"121"
+									],
+									"port": "8180",
+									"path": [
+										"realms",
+										"experimental",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								},
+								"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "grant type password (deprecated)",
+					"item": [
+						{
+							"name": "get token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "demouser",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "demouser",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "myapp-authorization-code",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"15",
+										"121"
+									],
+									"port": "8180",
+									"path": [
+										"realms",
+										"experimental",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								},
+								"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token"
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "grant type Implicit (deprecated)",
+					"item": [
+						{
+							"name": "auth user",
+							"item": [
+								{
+									"name": "login user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=photo-app-implicit&response_type=token&state=fj8o3n7bdy1op5",
+											"protocol": "http",
+											"host": [
+												"192",
+												"168",
+												"15",
+												"121"
+											],
+											"port": "8180",
+											"path": [
+												"realms",
+												"experimental",
+												"protocol",
+												"openid-connect",
+												"auth"
+											],
+											"query": [
+												{
+													"key": "client_id",
+													"value": "photo-app-implicit"
+												},
+												{
+													"key": "response_type",
+													"value": "token"
+												},
+												{
+													"key": "state",
+													"value": "fj8o3n7bdy1op5"
+												}
+											]
+										},
+										"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth"
+									},
+									"response": []
+								},
+								{
+									"name": "login user + redirect uri",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=photo-app-implicit&response_type=token&state=fj8o3n7bdy1op5&redirect_uri=http://192.168.15.121:8180/abc",
+											"protocol": "http",
+											"host": [
+												"192",
+												"168",
+												"15",
+												"121"
+											],
+											"port": "8180",
+											"path": [
+												"realms",
+												"experimental",
+												"protocol",
+												"openid-connect",
+												"auth"
+											],
+											"query": [
+												{
+													"key": "client_id",
+													"value": "photo-app-implicit"
+												},
+												{
+													"key": "response_type",
+													"value": "token"
+												},
+												{
+													"key": "state",
+													"value": "fj8o3n7bdy1op5"
+												},
+												{
+													"key": "redirect_uri",
+													"value": "http://192.168.15.121:8180/abc"
+												}
+											]
+										},
+										"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth"
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "grant type Refresh Token",
+					"item": [
+						{
+							"name": "refresh token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "refresh_token",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "photo-app-implicit",
+											"type": "text"
+										},
+										{
+											"key": "refresh_token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQWXBsc19SUGMwNVRCU2dOSXh6UTFkQ0lXMDVLOFBXUUMwVnREanFMX01BIn0.eyJleHAiOjE2NTE1Nzg0OTMsImlhdCI6MTY1MTU3NzU5MywiYXV0aF90aW1lIjoxNjUxNTc1Nzk1LCJqdGkiOiIzMjVhNzEyMS1lMGJhLTQ3MjEtYjUyZS1iMGJjZjZmZDg5MDkiLCJpc3MiOiJodHRwOi8vMTkyLjE2OC4xNS4xMjE6ODE4MC9yZWFsbXMvZXhwZXJpbWVudGFsIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjdhMjI3MTliLTRjNmQtNDI4NC1iOGIxLTM3NDgxN2NkMzBiYyIsInR5cCI6IkJlYXJlciIsImF6cCI6InBob3RvLWFwcC1pbXBsaWNpdCIsInNlc3Npb25fc3RhdGUiOiIyNTkzMGEwZi0zZjdkLTQyMmItYWZiYi1kMjM3ZTA4NjM3YWUiLCJhY3IiOiIwIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZXhwZXJpbWVudGFsIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjI1OTMwYTBmLTNmN2QtNDIyYi1hZmJiLWQyMzdlMDg2MzdhZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiRGVtbyBVc2VyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiZGVtb3VzZXIiLCJnaXZlbl9uYW1lIjoiRGVtbyIsImZhbWlseV9uYW1lIjoiVXNlciIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9.CCrNJz1Rp72Y5aAhaxKF8XQULKqs-98AULMYKF4dspecATq5DTLzaLgmysfanrXg2oZsCWxUEiJ1JqmRXifNx5nqKQujhFwXQZu6oFwN-K9AdNRnFJaviax4HEaV8H3Yw3BqB7b9EJiI3pQekqX84-nyj1gGIWIy_MS2q81G-zYBrIKSLdRGDoCSFN9i6fPFUDWhB1QrszonVB6lwxoDM2W2sfXg3KpyDAcTALkXrw2dJ4FbUERLcN5ss7NX8lRlnUNbt2xey6NMb1aPHyfrHTyYXRtp2PhVVtVEuc3xi_lK3BWetpVOe_B9EQ05Abg8IeYtlFXdJg-0LuYO6mv9tw",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"15",
+										"121"
+									],
+									"port": "8180",
+									"path": [
+										"realms",
+										"experimental",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								},
+								"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Proxy",
+			"item": [
+				{
+					"name": "GET upstream",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQWXBsc19SUGMwNVRCU2dOSXh6UTFkQ0lXMDVLOFBXUUMwVnREanFMX01BIn0.eyJleHAiOjE2NTIwOTczNDYsImlhdCI6MTY1MjA5NzA0NiwianRpIjoiMmRkMmUyY2ItZjljNy00NjQzLWIwZmQtNzRiNzBlZjk4ODY4IiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMTUuMTIxOjgxODAvcmVhbG1zL2V4cGVyaW1lbnRhbCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzMDVjNjdhYy01NTQwLTQ0YWQtODZiOS1hZmYwMjhjZWFhZTkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJrb25nLWFwcC1jbGllbnQtY3JlZGVudGlhbCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1leHBlcmltZW50YWwiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsia29uZy1hcHAtY2xpZW50LWNyZWRlbnRpYWwiOnsicm9sZXMiOlsidW1hX3Byb3RlY3Rpb24iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImNsaWVudElkIjoia29uZy1hcHAtY2xpZW50LWNyZWRlbnRpYWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNsaWVudEhvc3QiOiIxOTIuMTY4LjE1LjEyMSIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1rb25nLWFwcC1jbGllbnQtY3JlZGVudGlhbCIsImNsaWVudEFkZHJlc3MiOiIxOTIuMTY4LjE1LjEyMSJ9.LoYJVCmMaTRk0UaAHvEP7X_ONsalJHf_MOL92ZYBALC3ytpBVQW_sCBD-j_vMikqY41j_RycXtELsqYr7RBu_zE1P-vwTTOCiKkWSTTEYawkktsRlqC-HCKkFG-pg-cr7QNtyUSz3XwD0POzphcW_vxRcYzKgE99dTsi89ZwvoK0YGFXCmtG78rCVDyxXYkQlO8_wOSV_qCOypt61rB70UmprFregKqcx7H5tXsOMVXOKbzz3qBYhQKPDQALqrrihfGVs1c0zDnJpS7oTmlpFwESd-11YJbZwh6Ee8AWaIN4o7jkfiwvKUDQT7J6wcsZ9eNyvSkaCVFq-Cki1A5yrw",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.15.121:8000/mock",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"15",
+								"121"
+							],
+							"port": "8000",
+							"path": [
+								"mock"
+							]
+						},
+						"description": "http://localhost:8000/mock"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
