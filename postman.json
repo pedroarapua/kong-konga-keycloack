@@ -509,6 +509,11 @@
 																},
 																{
 																	"key": "config.scope[]",
+																	"value": "product",
+																	"type": "text"
+																},
+																{
+																	"key": "config.scope[]",
 																	"value": "product:read",
 																	"type": "text"
 																}
