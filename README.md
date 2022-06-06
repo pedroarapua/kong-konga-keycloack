@@ -471,3 +471,32 @@ curl "http://${HOST_IP}:8000/mock" \
 ```
 
 Yeah! This works. End we reached the end of this readme! All seems to work now.
+
+# Setup References
+Building Enviroment: https://medium.com/@harsh.manvar111/building-kong-custom-docker-image-add-a-customized-kong-plugin-2157a381d7fd
+Keycloack Config: https://faun.pub/securing-the-application-with-kong-keycloak-101-e25e0ae9ec56
+Kong OIDC Config: https://faun.pub/securing-the-application-with-kong-keycloak-101-e25e0ae9ec56
+Kong OIDC + Jwt Config: https://dev.to/robincher/securing-your-site-via-oidc-powered-by-kong-and-keycloak-2ccc
+
+# Grant Referentes
+Client Credentials Grant: 
+  - https://www.appsdeveloperblog.com/keycloak-client-credentials-grant-example/
+Authorization Code Grant: 
+  - https://www.appsdeveloperblog.com/keycloak-authorization-code-grant-example/
+PKCE Verification in Authorization Code Grant: 
+  - https://www.appsdeveloperblog.com/pkce-verification-in-authorization-code-grant/
+Device Authorization Grant: 
+  - https://www.appsdeveloperblog.com/oauth-device-authorization-grant-flow-example/
+Refresh Token Grant:
+  - https://www.appsdeveloperblog.com/oauth-2-0-refresh-token-example/
+Amazon Cognito: 
+  - https://aws.amazon.com/pt/blogs/aws-brasil/explorando-a-concessao-client-credentials-do-oauth-2-0-na-aws/
+
+# Scopes, Permissions and Policies References
+Keycloack Scopes, permissionas and Policies: 
+  - https://stackoverflow.com/questions/42186537/resources-scopes-permissions-and-policies-in-keycloak
+Role Based Access Control: 
+  - https://appsdeveloperblog.com/role-based-access-control-to-rest-api-with-keycloak/
+  - https://www.appsdeveloperblog.com/fine-grained-authorization-services-in-keycloak/
+Scopes:
+  - https://curity.io/resources/learn/scope-best-practices/

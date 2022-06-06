@@ -6,12 +6,202 @@
 	},
 	"item": [
 		{
-			"name": "kong configurations",
+			"name": "Keycloack",
 			"item": [
 				{
-					"name": "Enable Plugin OIDC",
+					"name": "authorization_endpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=authorization-code-client&response_type=code&state=fj8o3n7bdy1op5",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"15",
+								"121"
+							],
+							"port": "8180",
+							"path": [
+								"realms",
+								"experimental",
+								"protocol",
+								"openid-connect",
+								"auth"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "authorization-code-client"
+								},
+								{
+									"key": "response_type",
+									"value": "code"
+								},
+								{
+									"key": "state",
+									"value": "fj8o3n7bdy1op5"
+								}
+							]
+						},
+						"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/auth"
+					},
+					"response": []
+				},
+				{
+					"name": "token_endpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client-credentials-client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "DyWK6wtjwOnkxSe7ZD8p34tKnpiYxZgv",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"15",
+								"121"
+							],
+							"port": "8180",
+							"path": [
+								"realms",
+								"experimental",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						},
+						"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token"
+					},
+					"response": []
+				},
+				{
+					"name": "introspection_endpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItdTJoY04wbVQxUTNDaFlqUjhTLXlwLXNGRVFvNlREMXF6NW9JZ00zYjkwIn0.eyJleHAiOjE2NTQzMTQ1NTAsImlhdCI6MTY1NDMxNDI1MCwianRpIjoiYzlkMTM1NmUtYjk0My00NDFkLWJhYzEtMzI3YTU5MGUzNDI1IiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMTUuMTIxOjgxODAvcmVhbG1zL2V4cGVyaW1lbnRhbCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIyOWYyNzFkOC0xOTg1LTQ3Y2QtOTU1Yy1hMzFjNzkzOWM2NjkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWV4cGVyaW1lbnRhbCIsIm9mZmxpbmVfYWNjZXNzIiwiYmFua190ZWxsZXIiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImNsaWVudEhvc3QiOiIxOTIuMTY4LjE1LjEyMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWNsaWVudC1jcmVkZW50aWFscy1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTkyLjE2OC4xNS4xMjEifQ.ckLMsn-ja2_xtGD5_l8uVLV5odFFZh2g-d7esXNVKvMKPIFZzQAvqiyU-EJSw6HeFajfIivFG0fUKPexRjtTFXyY5ljZDfHAiQCyanDtiUcX6WZZnVD-y9fG4EWDfEJu9cFYPQtO689FkKSI2xdABkw-OnugruFivOWMGkJDxjK1DuJNYlRqC5DeNULk0YO3NtflDMbbQpE6FuSzMbcjoEGTx2Pb_0b18wfSNbb8xc7hmOu8nExxAQ5T3Mur4bGudeWSli-iVf75nO3UrlqvzqTkvYgNdwoJz_Z607xi08F7hsP3FVw7QNbfxcWM3Pqw_VXozw3cxLvxeDtMJIctxQ",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client-credentials-client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "DyWK6wtjwOnkxSe7ZD8p34tKnpiYxZgv",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"15",
+								"121"
+							],
+							"port": "8180",
+							"path": [
+								"realms",
+								"experimental",
+								"protocol",
+								"openid-connect",
+								"token",
+								"introspect"
+							]
+						},
+						"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token/introspect"
+					},
+					"response": []
+				},
+				{
+					"name": "userinfo_endpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -19,68 +209,68 @@
 								"type": "text"
 							},
 							{
-								"key": "Cache-Control",
-								"value": "no-cache",
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItdTJoY04wbVQxUTNDaFlqUjhTLXlwLXNGRVFvNlREMXF6NW9JZ00zYjkwIn0.eyJleHAiOjE2NTQzMTQ1NTAsImlhdCI6MTY1NDMxNDI1MCwianRpIjoiYzlkMTM1NmUtYjk0My00NDFkLWJhYzEtMzI3YTU5MGUzNDI1IiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMTUuMTIxOjgxODAvcmVhbG1zL2V4cGVyaW1lbnRhbCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIyOWYyNzFkOC0xOTg1LTQ3Y2QtOTU1Yy1hMzFjNzkzOWM2NjkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWV4cGVyaW1lbnRhbCIsIm9mZmxpbmVfYWNjZXNzIiwiYmFua190ZWxsZXIiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImNsaWVudEhvc3QiOiIxOTIuMTY4LjE1LjEyMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWNsaWVudC1jcmVkZW50aWFscy1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTkyLjE2OC4xNS4xMjEifQ.ckLMsn-ja2_xtGD5_l8uVLV5odFFZh2g-d7esXNVKvMKPIFZzQAvqiyU-EJSw6HeFajfIivFG0fUKPexRjtTFXyY5ljZDfHAiQCyanDtiUcX6WZZnVD-y9fG4EWDfEJu9cFYPQtO689FkKSI2xdABkw-OnugruFivOWMGkJDxjK1DuJNYlRqC5DeNULk0YO3NtflDMbbQpE6FuSzMbcjoEGTx2Pb_0b18wfSNbb8xc7hmOu8nExxAQ5T3Mur4bGudeWSli-iVf75nO3UrlqvzqTkvYgNdwoJz_Z607xi08F7hsP3FVw7QNbfxcWM3Pqw_VXozw3cxLvxeDtMJIctxQ",
 								"type": "text"
 							}
 						],
+						"url": {
+							"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/userinfo",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"15",
+								"121"
+							],
+							"port": "8180",
+							"path": [
+								"realms",
+								"experimental",
+								"protocol",
+								"openid-connect",
+								"userinfo"
+							]
+						},
+						"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/userinfo"
+					},
+					"response": []
+				},
+				{
+					"name": "end_session_endpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "name",
-									"value": "oidc",
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItdTJoY04wbVQxUTNDaFlqUjhTLXlwLXNGRVFvNlREMXF6NW9JZ00zYjkwIn0.eyJleHAiOjE2NTQzMTQ1NTAsImlhdCI6MTY1NDMxNDI1MCwianRpIjoiYzlkMTM1NmUtYjk0My00NDFkLWJhYzEtMzI3YTU5MGUzNDI1IiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMTUuMTIxOjgxODAvcmVhbG1zL2V4cGVyaW1lbnRhbCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIyOWYyNzFkOC0xOTg1LTQ3Y2QtOTU1Yy1hMzFjNzkzOWM2NjkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWV4cGVyaW1lbnRhbCIsIm9mZmxpbmVfYWNjZXNzIiwiYmFua190ZWxsZXIiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImNsaWVudEhvc3QiOiIxOTIuMTY4LjE1LjEyMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWNsaWVudC1jcmVkZW50aWFscy1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTkyLjE2OC4xNS4xMjEifQ.ckLMsn-ja2_xtGD5_l8uVLV5odFFZh2g-d7esXNVKvMKPIFZzQAvqiyU-EJSw6HeFajfIivFG0fUKPexRjtTFXyY5ljZDfHAiQCyanDtiUcX6WZZnVD-y9fG4EWDfEJu9cFYPQtO689FkKSI2xdABkw-OnugruFivOWMGkJDxjK1DuJNYlRqC5DeNULk0YO3NtflDMbbQpE6FuSzMbcjoEGTx2Pb_0b18wfSNbb8xc7hmOu8nExxAQ5T3Mur4bGudeWSli-iVf75nO3UrlqvzqTkvYgNdwoJz_Z607xi08F7hsP3FVw7QNbfxcWM3Pqw_VXozw3cxLvxeDtMJIctxQ",
 									"type": "text"
 								},
 								{
-									"key": "config.client_id",
-									"value": "kong-oidc",
+									"key": "client_id",
+									"value": "client-credentials-client",
 									"type": "text"
 								},
 								{
-									"key": "config.client_secret",
-									"value": "",
+									"key": "client_secret",
+									"value": "DyWK6wtjwOnkxSe7ZD8p34tKnpiYxZgv",
 									"type": "text"
 								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:8001/",
-							"protocol": "http",
-							"host": [
-								"localhost"
 							],
-							"port": "8001",
-							"path": [
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add a service",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.globals.set(\"serviceId\", jsonData.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"mock-service\",\n    \"url\": \"http://mockbin.org/request\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -88,308 +278,1036 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8001/services",
+							"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/logout",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"192",
+								"168",
+								"15",
+								"121"
 							],
-							"port": "8001",
+							"port": "8180",
 							"path": [
-								"services"
+								"realms",
+								"experimental",
+								"protocol",
+								"openid-connect",
+								"logout"
 							]
 						},
-						"description": "http://localhost:8001/services"
+						"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/logout"
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "kong configurations",
+			"item": [
 				{
-					"name": "GET services",
-					"event": [
+					"name": "services",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.globals.set(\"serviceId\", jsonData.id);"
-								],
-								"type": "text/javascript"
-							}
+							"name": "microservice-api",
+							"item": [
+								{
+									"name": "routes",
+									"item": [
+										{
+											"name": "read-product",
+											"item": [
+												{
+													"name": "Add",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"name\": \"read-product\",\n    \"methods\": [\"GET\"],\n    \"protocols\": [\"http\"],\n    \"paths\": [\"/products\"],\n    \"strip_path\": false\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "http://localhost:8001/services/microservice-api/routes/",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"services",
+																"microservice-api",
+																"routes",
+																""
+															]
+														},
+														"description": "http://localhost:8001/services"
+													},
+													"response": []
+												},
+												{
+													"name": "Get",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"tests[\"Status code is 200\"] = responseCode.code === 200;",
+																	"",
+																	"var jsonData = pm.response.json();",
+																	"",
+																	"pm.globals.set(\"serviceId\", jsonData.id);"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "http://localhost:8001/services/microservice-api/routes/read-product",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"services",
+																"microservice-api",
+																"routes",
+																"read-product"
+															]
+														},
+														"description": "http://localhost:8001/services/{id}/routes"
+													},
+													"response": []
+												},
+												{
+													"name": "Delete",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "http://localhost:8001/services/microservice-api/routes/read-product",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"services",
+																"microservice-api",
+																"routes",
+																"read-product"
+															]
+														},
+														"description": "http://localhost:8001/services/{serviceId}/routes/{id}"
+													},
+													"response": []
+												},
+												{
+													"name": "Add OIDC plugin",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"name\": \"oidc\",\n  \"route\": \"read-product\",\n  \"enabled\": true,\n  \"config\": {\n    \"client_id\": \"microservice-api\",\n    \"client_secret\": \"WRqmIBBgFijiLSRHYg17yfbbwJE2FV0L\",\n    \"bearer_only\": \"yes\",\n    \"realm\": \"experimental\",\n    \"introspection_endpoint\": \"http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect\",\n    \"discovery\": \"http://192.168.15.121:8180/realms/experimental/.well-known/openid-configuration\"\n  }\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "http://localhost:8001/routes/read-product/plugins",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"routes",
+																"read-product",
+																"plugins"
+															]
+														},
+														"description": "http://localhost:8001/routes/route_mock/plugins"
+													},
+													"response": []
+												},
+												{
+													"name": "Add JWT plugin",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "urlencoded",
+															"urlencoded": [
+																{
+																	"key": "name",
+																	"value": "jwt-keycloak",
+																	"type": "text"
+																},
+																{
+																	"key": "config.allowed_iss",
+																	"value": "http://192.168.15.121:8180/realms/experimental",
+																	"type": "text"
+																},
+																{
+																	"key": "config.client_roles[]",
+																	"value": "microservice-api:viewer.product",
+																	"type": "text"
+																},
+																{
+																	"key": "config.scope[]",
+																	"value": "product:read",
+																	"type": "text"
+																}
+															],
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "http://localhost:8001/routes/read-product/plugins",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"routes",
+																"read-product",
+																"plugins"
+															]
+														},
+														"description": "http://localhost:8001/routes/route_mock/plugins"
+													},
+													"response": []
+												},
+												{
+													"name": "Delete plugin",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "http://localhost:8001/routes/read-product/plugins/f82ebeef-f59c-45ff-a3b0-0e028a5c7c2d",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"routes",
+																"read-product",
+																"plugins",
+																"f82ebeef-f59c-45ff-a3b0-0e028a5c7c2d"
+															]
+														},
+														"description": "http://localhost:8001/routes/route_mock/plugins"
+													},
+													"response": []
+												},
+												{
+													"name": "GET plugins",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "http://localhost:8001/routes/read-product/plugins",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"routes",
+																"read-product",
+																"plugins"
+															]
+														},
+														"description": "http://localhost:8001/routes/route_mock/plugins"
+													},
+													"response": []
+												},
+												{
+													"name": "GET products",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "oauth2",
+															"oauth2": [
+																{
+																	"key": "scope",
+																	"value": "product:read",
+																	"type": "string"
+																},
+																{
+																	"key": "tokenName",
+																	"value": "token client-credentials-client (cliente app)",
+																	"type": "string"
+																},
+																{
+																	"key": "tokenType",
+																	"value": "",
+																	"type": "string"
+																},
+																{
+																	"key": "accessToken",
+																	"value": "",
+																	"type": "string"
+																},
+																{
+																	"key": "clientSecret",
+																	"value": "DyWK6wtjwOnkxSe7ZD8p34tKnpiYxZgv",
+																	"type": "string"
+																},
+																{
+																	"key": "clientId",
+																	"value": "client-credentials-client",
+																	"type": "string"
+																},
+																{
+																	"key": "grant_type",
+																	"value": "client_credentials",
+																	"type": "string"
+																},
+																{
+																	"key": "accessTokenUrl",
+																	"value": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+																	"type": "string"
+																},
+																{
+																	"key": "client_authentication",
+																	"value": "body",
+																	"type": "string"
+																},
+																{
+																	"key": "password",
+																	"value": "user",
+																	"type": "string"
+																},
+																{
+																	"key": "username",
+																	"value": "user",
+																	"type": "string"
+																},
+																{
+																	"key": "state",
+																	"value": "12345",
+																	"type": "string"
+																},
+																{
+																	"key": "redirect_uri",
+																	"value": "http://localhost:8085",
+																	"type": "string"
+																},
+																{
+																	"key": "authUrl",
+																	"value": "http://localhost:8080/auth/realms/master/protocol/openid-connect/auth",
+																	"type": "string"
+																},
+																{
+																	"key": "addTokenTo",
+																	"value": "header",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItdTJoY04wbVQxUTNDaFlqUjhTLXlwLXNGRVFvNlREMXF6NW9JZ00zYjkwIn0.eyJleHAiOjE2NTQ0NTQ0NjksImlhdCI6MTY1NDQ1NDE2OSwianRpIjoiNGMwOGI1MWQtNjE0Ni00ZTNkLTkzNmUtYjQ1YWNjOTY2MDEzIiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMTUuMTIxOjgxODAvcmVhbG1zL2V4cGVyaW1lbnRhbCIsImF1ZCI6WyJtaWNyb3NlcnZpY2UtYXBpIiwiYWNjb3VudCJdLCJzdWIiOiIyOWYyNzFkOC0xOTg1LTQ3Y2QtOTU1Yy1hMzFjNzkzOWM2NjkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWV4cGVyaW1lbnRhbCIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJtaWNyb3NlcnZpY2UtYXBpIjp7InJvbGVzIjpbInZpZXdlciJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImNsaWVudEhvc3QiOiIxOTIuMTY4LjE1LjEyMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWNsaWVudC1jcmVkZW50aWFscy1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTkyLjE2OC4xNS4xMjEifQ.FS92AawabU1seY_p9Eq8PglvLrnalmRc53Mww74QplYtQiVrzVqri0uGecg-p05O7jO31HS9kZwfkz516mfK0zWw0SWUqck6RYCi1mdXhCdWe9kfF5TGZTspLg9e-JD5qUHJbhTXzAA-WUZVJdaq26pzkq8m-eCClDOBG-xL9HUog1NMo5ALNZHDTa259Stip0U8OSUMfCRF9D65gPDLoW1ISqkujJcRiZDIQMCqz7yRh_eFNZioP5EKJz3mTbAhUt1OFIBTZKFEawRsejc9spTE_crTV_n3r0od725fca82lKZKqID3aQZOJ0bIguPormU6YWNAI4PKSpkmgM8yJw"
+															},
+															{
+																"key": "Accept",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "http://localhost:8000/products",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8000",
+															"path": [
+																"products"
+															]
+														},
+														"description": "http://localhost:8000/products"
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "write-product",
+											"item": [
+												{
+													"name": "Add",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"name\": \"write-product\",\n    \"methods\": [\"POST\", \"DELETE\", \"PUT\", \"PATCH\"],\n    \"protocols\": [\"http\"],\n    \"paths\": [\"/products\"]\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "http://localhost:8001/services/microservice-api/routes/",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"services",
+																"microservice-api",
+																"routes",
+																""
+															]
+														},
+														"description": "http://localhost:8001/services"
+													},
+													"response": []
+												},
+												{
+													"name": "Get",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"tests[\"Status code is 200\"] = responseCode.code === 200;",
+																	"",
+																	"var jsonData = pm.response.json();",
+																	"",
+																	"pm.globals.set(\"serviceId\", jsonData.id);"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "http://localhost:8001/services/microservice-api/routes/write-product",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"services",
+																"microservice-api",
+																"routes",
+																"write-product"
+															]
+														},
+														"description": "http://localhost:8001/services/{id}/routes"
+													},
+													"response": []
+												},
+												{
+													"name": "Delete",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "http://localhost:8001/services/microservice-api/routes/write-product",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"services",
+																"microservice-api",
+																"routes",
+																"write-product"
+															]
+														},
+														"description": "http://localhost:8001/services/{serviceId}/routes/{id}"
+													},
+													"response": []
+												},
+												{
+													"name": "Add OIDC plugin",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"name\": \"oidc\",\n  \"route\": \"write-product\",\n  \"enabled\": true,\n  \"config\": {\n    \"client_id\": \"microservice-api\",\n    \"client_secret\": \"WRqmIBBgFijiLSRHYg17yfbbwJE2FV0L\",\n    \"bearer_only\": \"yes\",\n    \"realm\": \"experimental\",\n    \"introspection_endpoint\": \"http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect\",\n    \"discovery\": \"http://192.168.15.121:8180/realms/experimental/.well-known/openid-configuration\"\n  }\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "http://localhost:8001/routes/write-product/plugins",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"routes",
+																"write-product",
+																"plugins"
+															]
+														},
+														"description": "http://localhost:8001/routes/route_mock/plugins"
+													},
+													"response": []
+												},
+												{
+													"name": "Add JWT plugin",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "urlencoded",
+															"urlencoded": [
+																{
+																	"key": "name",
+																	"value": "jwt-keycloak",
+																	"type": "text"
+																},
+																{
+																	"key": "config.allowed_iss",
+																	"value": "http://192.168.15.121:8180/realms/experimental",
+																	"type": "text"
+																},
+																{
+																	"key": "config.client_roles[]",
+																	"value": "microservice-api:admin.product",
+																	"type": "text"
+																},
+																{
+																	"key": "config.scope[]",
+																	"value": "product",
+																	"type": "text"
+																}
+															],
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "http://localhost:8001/routes/write-product/plugins",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"routes",
+																"write-product",
+																"plugins"
+															]
+														},
+														"description": "http://localhost:8001/routes/route_mock/plugins"
+													},
+													"response": []
+												},
+												{
+													"name": "Delete plugin",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "http://localhost:8001/routes/read-product/plugins/f82ebeef-f59c-45ff-a3b0-0e028a5c7c2d",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"routes",
+																"read-product",
+																"plugins",
+																"f82ebeef-f59c-45ff-a3b0-0e028a5c7c2d"
+															]
+														},
+														"description": "http://localhost:8001/routes/route_mock/plugins"
+													},
+													"response": []
+												},
+												{
+													"name": "GET plugins",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "http://localhost:8001/routes/read-product/plugins",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8001",
+															"path": [
+																"routes",
+																"read-product",
+																"plugins"
+															]
+														},
+														"description": "http://localhost:8001/routes/route_mock/plugins"
+													},
+													"response": []
+												},
+												{
+													"name": "POST products",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "oauth2",
+															"oauth2": [
+																{
+																	"key": "scope",
+																	"value": "product",
+																	"type": "string"
+																},
+																{
+																	"key": "tokenName",
+																	"value": "token client-credentials-client (cliente app)",
+																	"type": "string"
+																},
+																{
+																	"key": "tokenType",
+																	"value": "",
+																	"type": "string"
+																},
+																{
+																	"key": "accessToken",
+																	"value": "",
+																	"type": "string"
+																},
+																{
+																	"key": "clientSecret",
+																	"value": "DyWK6wtjwOnkxSe7ZD8p34tKnpiYxZgv",
+																	"type": "string"
+																},
+																{
+																	"key": "clientId",
+																	"value": "client-credentials-client",
+																	"type": "string"
+																},
+																{
+																	"key": "grant_type",
+																	"value": "client_credentials",
+																	"type": "string"
+																},
+																{
+																	"key": "accessTokenUrl",
+																	"value": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+																	"type": "string"
+																},
+																{
+																	"key": "client_authentication",
+																	"value": "body",
+																	"type": "string"
+																},
+																{
+																	"key": "password",
+																	"value": "user",
+																	"type": "string"
+																},
+																{
+																	"key": "username",
+																	"value": "user",
+																	"type": "string"
+																},
+																{
+																	"key": "state",
+																	"value": "12345",
+																	"type": "string"
+																},
+																{
+																	"key": "redirect_uri",
+																	"value": "http://localhost:8085",
+																	"type": "string"
+																},
+																{
+																	"key": "authUrl",
+																	"value": "http://localhost:8080/auth/realms/master/protocol/openid-connect/auth",
+																	"type": "string"
+																},
+																{
+																	"key": "addTokenTo",
+																	"value": "header",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItdTJoY04wbVQxUTNDaFlqUjhTLXlwLXNGRVFvNlREMXF6NW9JZ00zYjkwIn0.eyJleHAiOjE2NTQ0NTQ0NjksImlhdCI6MTY1NDQ1NDE2OSwianRpIjoiNGMwOGI1MWQtNjE0Ni00ZTNkLTkzNmUtYjQ1YWNjOTY2MDEzIiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMTUuMTIxOjgxODAvcmVhbG1zL2V4cGVyaW1lbnRhbCIsImF1ZCI6WyJtaWNyb3NlcnZpY2UtYXBpIiwiYWNjb3VudCJdLCJzdWIiOiIyOWYyNzFkOC0xOTg1LTQ3Y2QtOTU1Yy1hMzFjNzkzOWM2NjkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWV4cGVyaW1lbnRhbCIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJtaWNyb3NlcnZpY2UtYXBpIjp7InJvbGVzIjpbInZpZXdlciJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImNsaWVudEhvc3QiOiIxOTIuMTY4LjE1LjEyMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWNsaWVudC1jcmVkZW50aWFscy1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTkyLjE2OC4xNS4xMjEifQ.FS92AawabU1seY_p9Eq8PglvLrnalmRc53Mww74QplYtQiVrzVqri0uGecg-p05O7jO31HS9kZwfkz516mfK0zWw0SWUqck6RYCi1mdXhCdWe9kfF5TGZTspLg9e-JD5qUHJbhTXzAA-WUZVJdaq26pzkq8m-eCClDOBG-xL9HUog1NMo5ALNZHDTa259Stip0U8OSUMfCRF9D65gPDLoW1ISqkujJcRiZDIQMCqz7yRh_eFNZioP5EKJz3mTbAhUt1OFIBTZKFEawRsejc9spTE_crTV_n3r0od725fca82lKZKqID3aQZOJ0bIguPormU6YWNAI4PKSpkmgM8yJw"
+															},
+															{
+																"key": "Accept",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "http://localhost:8000/products",
+															"protocol": "http",
+															"host": [
+																"localhost"
+															],
+															"port": "8000",
+															"path": [
+																"products"
+															]
+														},
+														"description": "http://localhost:8000/products"
+													},
+													"response": []
+												}
+											],
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"type": "text/javascript",
+														"exec": [
+															""
+														]
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"type": "text/javascript",
+														"exec": [
+															""
+														]
+													}
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Add service microservice-api",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"tests[\"Status code is 200\"] = responseCode.code === 200;",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.globals.set(\"serviceId\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"microservice-api\",\n    \"url\": \"http://192.168.15.121\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8001/services",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"services"
+											]
+										},
+										"description": "http://localhost:8001/services"
+									},
+									"response": []
+								},
+								{
+									"name": "GET service microservice-api",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"tests[\"Status code is 200\"] = responseCode.code === 200;",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.globals.set(\"serviceId\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8001/services/microservice-api/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"services",
+												"microservice-api",
+												""
+											]
+										},
+										"description": "http://localhost:8001/services/microservice-api"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete service microservice-api",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"mock-service\",\n    \"url\": \"http://mockbin.org/request\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8001/services/microservice-api",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"services",
+												"microservice-api"
+											]
+										},
+										"description": "http://localhost:8001/services/bank-api"
+									},
+									"response": []
+								}
+							]
 						}
 					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8001/services/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"services",
-								""
-							]
-						},
-						"description": "http://localhost:8001/services"
-					},
-					"response": []
-				},
-				{
-					"name": "Add a route to the service",
 					"event": [
 						{
-							"listen": "test",
+							"listen": "prerequest",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"route_mock\",\n    \"methods\": [\"GET\"],\n    \"protocols\": [\"http\"],\n    \"paths\": [\"/mock\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
+								]
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8001/services/mock-service/routes/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"services",
-								"mock-service",
-								"routes",
-								""
-							]
-						},
-						"description": "http://localhost:8001/services"
-					},
-					"response": []
-				},
-				{
-					"name": "GET routes by service id",
-					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.globals.set(\"serviceId\", jsonData.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8001/services/mock-service/routes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"services",
-								"mock-service",
-								"routes"
-							]
-						},
-						"description": "http://localhost:8001/services/{id}/routes"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete a route",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
+								"type": "text/javascript",
 								"exec": [
 									""
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"paths\": [\n        \"/mocks\"\n    ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8001/services/6a7a87ef-d0aa-46ee-8db3-71ac022cc580/routes/80fa81c3-c237-4202-b4f6-1c45c3544412",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"services",
-								"6a7a87ef-d0aa-46ee-8db3-71ac022cc580",
-								"routes",
-								"80fa81c3-c237-4202-b4f6-1c45c3544412"
-							]
-						},
-						"description": "http://localhost:8001/services/{serviceId}/routes/{id}"
-					},
-					"response": []
-				},
-				{
-					"name": "Add OIDC plugin to a route",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"oidc\",\n  \"route\": \"route_mock\",\n  \"enabled\": true,\n  \"config\": {\n    \"client_id\": \"kong-app-client-credential\",\n    \"client_secret\": \"FEqF9kspR1o5RjbYDuq9qjLvRnYnyZXD\",\n    \"bearer_only\": \"yes\",\n    \"realm\": \"experimental\",\n    \"introspection_endpoint\": \"http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect\",\n    \"discovery\": \"http://192.168.15.121:8180/auth/realms/experimental/.well-known/openid-configuration\"\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8001/routes/route_mock/plugins",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"routes",
-								"route_mock",
-								"plugins"
-							]
-						},
-						"description": "http://localhost:8001/routes/route_mock/plugins"
-					},
-					"response": []
-				},
-				{
-					"name": "GET OIDC plugin to a route",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"oidc\",\n  \"route\": \"route_mock\",\n  \"enabled\": true,\n  \"config\": {\n    \"client_id\": \"kong-app-client-credential\",\n    \"client_secret\": \"FEqF9kspR1o5RjbYDuq9qjLvRnYnyZXD\",\n    \"bearer_only\": \"yes\",\n    \"realm\": \"experimental\",\n    \"introspection_endpoint\": \"http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect\",\n    \"discovery\": \"http://192.168.15.121:8180/auth/realms/experimental/.well-known/openid-configuration\"\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8001/routes/route_mock/plugins",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"routes",
-								"route_mock",
-								"plugins"
-							]
-						},
-						"description": "http://localhost:8001/routes/route_mock/plugins"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete OIDC plugin to a route",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"oidc\",\n  \"route\": \"route_mock\",\n  \"enabled\": true,\n  \"config\": {\n    \"client_id\": \"kong-app-client-credential\",\n    \"client_secret\": \"FEqF9kspR1o5RjbYDuq9qjLvRnYnyZXD\",\n    \"bearer_only\": \"yes\",\n    \"realm\": \"experimental\",\n    \"introspection_endpoint\": \"http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token/introspect\",\n    \"discovery\": \"http://192.168.15.121:8180/auth/realms/experimental/.well-known/openid-configuration\"\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8001/routes/route_mock/plugins/09a32d72-dcde-4e1d-b048-16a61f5d95d4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8001",
-							"path": [
-								"routes",
-								"route_mock",
-								"plugins",
-								"09a32d72-dcde-4e1d-b048-16a61f5d95d4"
-							]
-						},
-						"description": "http://localhost:8001/routes/route_mock/plugins"
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -425,17 +1343,17 @@
 										},
 										{
 											"key": "client_id",
-											"value": "kong-app-client-credential",
+											"value": "client-credentials-client",
 											"type": "text"
 										},
 										{
 											"key": "client_secret",
-											"value": "FEqF9kspR1o5RjbYDuq9qjLvRnYnyZXD",
+											"value": "DyWK6wtjwOnkxSe7ZD8p34tKnpiYxZgv",
 											"type": "text"
 										},
 										{
 											"key": "scope",
-											"value": "email",
+											"value": "openid",
 											"type": "text"
 										}
 									],
@@ -492,7 +1410,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=myapp-authorization-code&response_type=code&state=fj8o3n7bdy1op5",
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=authorization-code-client&response_type=code&state=fj8o3n7bdy1op5",
 											"protocol": "http",
 											"host": [
 												"192",
@@ -511,7 +1429,7 @@
 											"query": [
 												{
 													"key": "client_id",
-													"value": "myapp-authorization-code"
+													"value": "authorization-code-client"
 												},
 												{
 													"key": "response_type",
@@ -544,7 +1462,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=myapp-authorization-code&response_type=code&state=fj8o3n7bdy1op5&redirect_uri=http://192.168.15.121:8180/abc",
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=authorization-code-client&response_type=code&state=fj8o3n7bdy1op5&redirect_uri=http://192.168.15.121:8000/abc",
 											"protocol": "http",
 											"host": [
 												"192",
@@ -563,7 +1481,7 @@
 											"query": [
 												{
 													"key": "client_id",
-													"value": "myapp-authorization-code"
+													"value": "authorization-code-client"
 												},
 												{
 													"key": "response_type",
@@ -575,7 +1493,7 @@
 												},
 												{
 													"key": "redirect_uri",
-													"value": "http://192.168.15.121:8180/abc"
+													"value": "http://192.168.15.121:8000/abc"
 												}
 											]
 										},
@@ -600,7 +1518,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=myapp-authorization-code&response_type=code&state=fj8o3n7bdy1op5&scope=openid profile email read:appointments&redirect_uri=http://192.168.15.121:8180/abc&audience=YOUR_API_AUDIENCE",
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=authorization-code-client&response_type=code&state=fj8o3n7bdy1op5&scope=openid profile email&redirect_uri=http://192.168.15.121:8000/abc&audience=YOUR_API_AUDIENCE",
 											"protocol": "http",
 											"host": [
 												"192",
@@ -619,7 +1537,7 @@
 											"query": [
 												{
 													"key": "client_id",
-													"value": "myapp-authorization-code"
+													"value": "authorization-code-client"
 												},
 												{
 													"key": "response_type",
@@ -631,11 +1549,11 @@
 												},
 												{
 													"key": "scope",
-													"value": "openid profile email read:appointments"
+													"value": "openid profile email"
 												},
 												{
 													"key": "redirect_uri",
-													"value": "http://192.168.15.121:8180/abc"
+													"value": "http://192.168.15.121:8000/abc"
 												},
 												{
 													"key": "audience",
@@ -675,17 +1593,17 @@
 										},
 										{
 											"key": "client_id",
-											"value": "myapp-authorization-code",
+											"value": "authorization-code-client",
 											"type": "text"
 										},
 										{
 											"key": "code",
-											"value": "5cf73927-4741-4845-9c46-d0bf830e381d.8ed2aa21-c290-42b6-a249-b86a3ceea58d.a0253766-498a-46ff-aca5-b951412113b4",
+											"value": "f98f685a-f73c-4334-9217-858ed2b8f853.f5a82b72-f50e-4d07-98d5-caa3f1386423.bcc0b1b7-98fc-4077-bd41-e3079b58e1a7",
 											"type": "text"
 										},
 										{
 											"key": "redirect_uri",
-											"value": "http://192.168.15.121:8180/abc",
+											"value": "http://192.168.15.121:8000/abc",
 											"type": "text"
 										}
 									],
@@ -740,7 +1658,7 @@
 					]
 				},
 				{
-					"name": "grant type PKCE",
+					"name": "grant type authorization code PKCE",
 					"item": [
 						{
 							"name": "auth user",
@@ -762,7 +1680,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=photo-app-pkce&response_type=code&state=fj8o3n7bdy1op5&code_challenge=iJuzte-yKmDXz1HpDS8Tm9llDhwoBuHh91bBg_LJFX0&code_challenge_method=S256",
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=pkce-authorization-code-client&response_type=code&state=fj8o3n7bdy1op5&code_challenge=iJuzte-yKmDXz1HpDS8Tm9llDhwoBuHh91bBg_LJFX0&code_challenge_method=S256",
 											"protocol": "http",
 											"host": [
 												"192",
@@ -781,7 +1699,7 @@
 											"query": [
 												{
 													"key": "client_id",
-													"value": "photo-app-pkce"
+													"value": "pkce-authorization-code-client"
 												},
 												{
 													"key": "response_type",
@@ -822,7 +1740,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=photo-app-pkce&response_type=code&state=fj8o3n7bdy1op5&code_challenge=-sUEoAV-txYvhniiuJ4-gwNCtsiD2XiIPvLQYm-sUsE&code_challenge_method=S256&redirect_uri=http://192.168.15.121:8180/abc",
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=pkce-authorization-code-client&response_type=code&state=fj8o3n7bdy1op5&code_challenge=-sUEoAV-txYvhniiuJ4-gwNCtsiD2XiIPvLQYm-sUsE&code_challenge_method=S256&redirect_uri=http://192.168.15.121:8180/abc",
 											"protocol": "http",
 											"host": [
 												"192",
@@ -841,7 +1759,7 @@
 											"query": [
 												{
 													"key": "client_id",
-													"value": "photo-app-pkce"
+													"value": "pkce-authorization-code-client"
 												},
 												{
 													"key": "response_type",
@@ -897,12 +1815,12 @@
 										},
 										{
 											"key": "client_id",
-											"value": "photo-app-pkce",
+											"value": "pkce-authorization-code-client",
 											"type": "text"
 										},
 										{
 											"key": "code",
-											"value": "e1725773-9044-4ac7-b6ed-f2cd69494591.25930a0f-3f7d-422b-afbb-d237e08637ae.9e32e292-7a00-4330-829b-5deafa0ef65b",
+											"value": "99560f8b-4255-4812-800c-7e3c69b92d97.8e4c4786-8f04-4cb2-b173-c35d4b1ca0f4.24585364-867b-44d1-954f-244e95f87704",
 											"type": "text"
 										},
 										{
@@ -912,7 +1830,7 @@
 										},
 										{
 											"key": "code_verifier",
-											"value": "3a737b3bd59ac56417641e0a84799934515185615300d07493268e7d",
+											"value": "c3cxd2UzNHJmZGUzNHJneWh1NzhpazFxd2U0cmZkZXI1Nnl1N3lnZnJ0NmpraW85NHJkc3dlcg",
 											"type": "text"
 										}
 									],
@@ -967,7 +1885,7 @@
 					]
 				},
 				{
-					"name": "grant type Device Code",
+					"name": "grant type device code",
 					"item": [
 						{
 							"name": "auth user",
@@ -993,12 +1911,12 @@
 											"urlencoded": [
 												{
 													"key": "client_id",
-													"value": "photo-app-device",
+													"value": "device-code-client",
 													"type": "text"
 												},
 												{
 													"key": "client_secret",
-													"value": "IXieSvOgY2pDr7vu76sbq74qHekRVW2f",
+													"value": "CeQbtfnlty0Q4uNRiLQkUJdxXGjPokwT",
 													"type": "text"
 												}
 											],
@@ -1059,17 +1977,17 @@
 										},
 										{
 											"key": "client_id",
-											"value": "photo-app-device",
+											"value": "device-code-client",
 											"type": "text"
 										},
 										{
 											"key": "device_code",
-											"value": "_860SFSZ03RBKGNmfr1nZMsMcUpJunl6dOQkBXvm3nw",
+											"value": "yjgNVI1NnL0e2RDvafsJG5uGLQltEw4dvqz0R84Jqb8",
 											"type": "text"
 										},
 										{
 											"key": "client_secret",
-											"value": "IXieSvOgY2pDr7vu76sbq74qHekRVW2f",
+											"value": "CeQbtfnlty0Q4uNRiLQkUJdxXGjPokwT",
 											"type": "text"
 										}
 									],
@@ -1127,12 +2045,12 @@
 									"urlencoded": [
 										{
 											"key": "username",
-											"value": "demouser",
+											"value": "user",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "demouser",
+											"value": "user",
 											"type": "text"
 										},
 										{
@@ -1142,7 +2060,7 @@
 										},
 										{
 											"key": "client_id",
-											"value": "myapp-authorization-code",
+											"value": "authorization-code-client",
 											"type": "text"
 										}
 									],
@@ -1219,7 +2137,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=photo-app-implicit&response_type=token&state=fj8o3n7bdy1op5",
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=implicit-token-client&response_type=token&state=fj8o3n7bdy1op5",
 											"protocol": "http",
 											"host": [
 												"192",
@@ -1238,7 +2156,7 @@
 											"query": [
 												{
 													"key": "client_id",
-													"value": "photo-app-implicit"
+													"value": "implicit-token-client"
 												},
 												{
 													"key": "response_type",
@@ -1271,7 +2189,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=photo-app-implicit&response_type=token&state=fj8o3n7bdy1op5&redirect_uri=http://192.168.15.121:8180/abc",
+											"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/auth?client_id=implicit-token-client&response_type=token&state=fj8o3n7bdy1op5&redirect_uri=http://192.168.15.121:8180/abc",
 											"protocol": "http",
 											"host": [
 												"192",
@@ -1290,7 +2208,7 @@
 											"query": [
 												{
 													"key": "client_id",
-													"value": "photo-app-implicit"
+													"value": "implicit-token-client"
 												},
 												{
 													"key": "response_type",
@@ -1405,6 +2323,104 @@
 			]
 		},
 		{
+			"name": "Test Authorization Policies",
+			"item": [
+				{
+					"name": "grant type client_credentials",
+					"item": [
+						{
+							"name": "get token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "client-credentials-client",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "DyWK6wtjwOnkxSe7ZD8p34tKnpiYxZgv",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "email",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"15",
+										"121"
+									],
+									"port": "8180",
+									"path": [
+										"realms",
+										"experimental",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								},
+								"description": "http://localhost:8180/realms/experimental/protocol/openid-connect/token"
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Proxy",
 			"item": [
 				{
@@ -1421,11 +2437,91 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "scope",
+									"value": "product:read",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "token client-credentials-client (cliente app)",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "DyWK6wtjwOnkxSe7ZD8p34tKnpiYxZgv",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "client-credentials-client",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://192.168.15.121:8180/realms/experimental/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "body",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "state",
+									"value": "12345",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8085",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://localhost:8080/auth/realms/master/protocol/openid-connect/auth",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQWXBsc19SUGMwNVRCU2dOSXh6UTFkQ0lXMDVLOFBXUUMwVnREanFMX01BIn0.eyJleHAiOjE2NTIwOTczNDYsImlhdCI6MTY1MjA5NzA0NiwianRpIjoiMmRkMmUyY2ItZjljNy00NjQzLWIwZmQtNzRiNzBlZjk4ODY4IiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMTUuMTIxOjgxODAvcmVhbG1zL2V4cGVyaW1lbnRhbCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzMDVjNjdhYy01NTQwLTQ0YWQtODZiOS1hZmYwMjhjZWFhZTkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJrb25nLWFwcC1jbGllbnQtY3JlZGVudGlhbCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1leHBlcmltZW50YWwiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsia29uZy1hcHAtY2xpZW50LWNyZWRlbnRpYWwiOnsicm9sZXMiOlsidW1hX3Byb3RlY3Rpb24iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImNsaWVudElkIjoia29uZy1hcHAtY2xpZW50LWNyZWRlbnRpYWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNsaWVudEhvc3QiOiIxOTIuMTY4LjE1LjEyMSIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1rb25nLWFwcC1jbGllbnQtY3JlZGVudGlhbCIsImNsaWVudEFkZHJlc3MiOiIxOTIuMTY4LjE1LjEyMSJ9.LoYJVCmMaTRk0UaAHvEP7X_ONsalJHf_MOL92ZYBALC3ytpBVQW_sCBD-j_vMikqY41j_RycXtELsqYr7RBu_zE1P-vwTTOCiKkWSTTEYawkktsRlqC-HCKkFG-pg-cr7QNtyUSz3XwD0POzphcW_vxRcYzKgE99dTsi89ZwvoK0YGFXCmtG78rCVDyxXYkQlO8_wOSV_qCOypt61rB70UmprFregKqcx7H5tXsOMVXOKbzz3qBYhQKPDQALqrrihfGVs1c0zDnJpS7oTmlpFwESd-11YJbZwh6Ee8AWaIN4o7jkfiwvKUDQT7J6wcsZ9eNyvSkaCVFq-Cki1A5yrw",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItdTJoY04wbVQxUTNDaFlqUjhTLXlwLXNGRVFvNlREMXF6NW9JZ00zYjkwIn0.eyJleHAiOjE2NTQ0NTQ0NjksImlhdCI6MTY1NDQ1NDE2OSwianRpIjoiNGMwOGI1MWQtNjE0Ni00ZTNkLTkzNmUtYjQ1YWNjOTY2MDEzIiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMTUuMTIxOjgxODAvcmVhbG1zL2V4cGVyaW1lbnRhbCIsImF1ZCI6WyJtaWNyb3NlcnZpY2UtYXBpIiwiYWNjb3VudCJdLCJzdWIiOiIyOWYyNzFkOC0xOTg1LTQ3Y2QtOTU1Yy1hMzFjNzkzOWM2NjkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWV4cGVyaW1lbnRhbCIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJtaWNyb3NlcnZpY2UtYXBpIjp7InJvbGVzIjpbInZpZXdlciJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImNsaWVudEhvc3QiOiIxOTIuMTY4LjE1LjEyMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWNsaWVudC1jcmVkZW50aWFscy1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTkyLjE2OC4xNS4xMjEifQ.FS92AawabU1seY_p9Eq8PglvLrnalmRc53Mww74QplYtQiVrzVqri0uGecg-p05O7jO31HS9kZwfkz516mfK0zWw0SWUqck6RYCi1mdXhCdWe9kfF5TGZTspLg9e-JD5qUHJbhTXzAA-WUZVJdaq26pzkq8m-eCClDOBG-xL9HUog1NMo5ALNZHDTa259Stip0U8OSUMfCRF9D65gPDLoW1ISqkujJcRiZDIQMCqz7yRh_eFNZioP5EKJz3mTbAhUt1OFIBTZKFEawRsejc9spTE_crTV_n3r0od725fca82lKZKqID3aQZOJ0bIguPormU6YWNAI4PKSpkmgM8yJw",
 								"type": "text"
 							},
 							{
@@ -1435,17 +2531,14 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.15.121:8000/mock",
+							"raw": "http://localhost:8000/products",
 							"protocol": "http",
 							"host": [
-								"192",
-								"168",
-								"15",
-								"121"
+								"localhost"
 							],
 							"port": "8000",
 							"path": [
-								"mock"
+								"products"
 							]
 						},
 						"description": "http://localhost:8000/mock"
